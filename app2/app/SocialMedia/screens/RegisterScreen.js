@@ -12,7 +12,7 @@ const RegisterScreen =(props) =>{
     const globalProfileData = useSelector(store => store.profileReducer);
     const onChangeInput = (inputType, value) => {
         createIconSetFromFontello({
-            ...form
+            ...form,
             [inputType] : value 
         });
     };
@@ -25,6 +25,13 @@ const RegisterScreen =(props) =>{
         console.log('email: ' +form.email);
         console.log('password: ' +form.password);
     })
+    useEffect( () => {
+        dispatch(createProfile({
+            username: 'yourName',
+            email: 'yourEmail',
+            password: 'yourPass' })
+            )
+    }, []);
     return (
         <ScrollView contentContainerStyle={styles.scroll}>
             <View style={styles.mainContainer}>

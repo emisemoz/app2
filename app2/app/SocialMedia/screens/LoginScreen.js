@@ -2,7 +2,7 @@ import { Image, TouchableOpacity, ScrollView, StyleSheet, Text, View } from 'rea
 import React from 'react'
 import {ButtonComponent} from '../components/ButtonComponent';
 import {InputComponent} from '../components/InputComponent';
-const LoginScreen = () => {
+const LoginScreen = (props) => {
     const {navigation}=props;
 return (
     <ScrollView contentContainerStyle={styles.scroll}>
@@ -32,8 +32,7 @@ return (
                 </Text>
             <TouchableOpacity
                 onPress={
-                () => navigation.navigate('Register')
-                        }
+                () => navigation.navigate('Register')}
             >
             <Text style={styles.registerText}>
             Register</Text>
