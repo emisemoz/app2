@@ -4,13 +4,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from '../screens/LoginScreen';
 // import create from "@ant-design/icons/lib/components/IconFont";
 import RegisterScreen from "../screens/RegisterScreen";
+import HomeScreen from "../screens/HomeScreen";
 
 const Stack=createStackNavigator();
 
 const MainNavigator = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Register">
+            <Stack.Navigator initialRouteName="Login">
                 <Stack.Screen 
                 name="Login"
                 component={LoginScreen}
@@ -26,6 +27,10 @@ const MainNavigator = () => {
                 headerTitleAlign: 'center',
                 headerLeft: null
             }}
+            />
+            <Stack.Screen 
+            name="Home"
+            component={HomeScreen}
             />
         </NavigationContainer>
     )

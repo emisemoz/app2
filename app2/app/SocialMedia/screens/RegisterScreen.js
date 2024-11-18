@@ -2,15 +2,36 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-nati
 import { Button } from '../components/ButtonComponent';
 import {Input} from '../components/InputComponent';
 import React, {useEffect} from 'react'
-import { UseSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {createProfile} from '../../store/actions/profileAction';
 import { formatDiagnostic } from 'typescript';
+import {Alert} from 'react-native';
 
 const RegisterScreen =(props) =>{
+    const [
+        isEmailFormat,
+        setIsEmailFormat
+    ] = useState(true);
+
+    const sendData = () =>{
+        if (form.username === ''|| form.email ==='' ||
+        form.password === '' ){
+            alert('Make sure you fill all the field with the right information!');
+        }
+        else {
+            dispatch(createProfile(form));
+        }
+    };
     const {navigation}= props;
     const dispatch = useDispatch();
-    const globalProfileData = useSelector(store => store.profileReducer);
+    const globalProfileData = useSelector((store) => store.profileReducer);
     const onChangeInput = (inputType, value) => {
+        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        if (inputType=== 'email'){
+            if(!emailRegex.test(value)){
+                setIsEmailFormat(false);
+            }
+        }
         createIconSetFromFontello({
             ...form,
             [inputType] : value 
@@ -32,6 +53,32 @@ const RegisterScreen =(props) =>{
             password: 'yourPass' })
             )
     }, []);
+    useEffect( () => {
+        console.log('GLOBAL STATE ON REGISTER PAGE');
+        console.log(globalProfileData);
+    }, [globalProfileData]);
+    useEffect( () => {
+        if (form.email === ''){
+            setIsEmailFormat(true);
+        }
+    }, [form.email]);
+    if (form.username === '' || form.email===''|| form.password===''||
+    !isEmailFormat){
+        alert('Make sure you fill all the field with the right Information!')
+    }
+    else{
+        dispatch(createProfile(form))
+        Alert.alert(
+            "Success",
+            "Successfully created an account!",
+            [
+                {
+                    text: "OK",
+                    onPress: () => navigation.navigate('Login')
+                }
+            ]
+        );
+    }
     return (
         <ScrollView contentContainerStyle={styles.scroll}>
             <View style={styles.mainContainer}>
@@ -49,6 +96,16 @@ const RegisterScreen =(props) =>{
                     (text) => onChangeInput ('email', text)
                 }
                 />
+                {
+                    isEmailFormat ?
+                    null
+                    :
+                    <View style={styles.warningContainer}>
+                        <Text style={styles.warning}>
+                            Please input the right email format!
+                        </Text>
+                    </View>
+                }
                 <Input 
                 title="Password"
                 placeholder="Password"
@@ -59,6 +116,7 @@ const RegisterScreen =(props) =>{
             </View>
             <Button 
             text="Register"
+            onPress={ () => sendData()}
             />
             <View style={styles.textContainer}>
                 <Text style={styles.text}>
@@ -102,6 +160,13 @@ const styles=StyleSheet.create({
         loginText: {
         color: '#1A5B0A',
         fontSize: 16
+        },
+        warningContainer: {
+            marginBottom: 16,
+            marginLeft: 16
+        },
+        warning: {
+            color: 'red'
         }
 })
 export default RegisterScreen;
