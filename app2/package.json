@@ -9,13 +9,15 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "type": "module"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@react-navigation/bottom-tabs": "^6.5.3",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.3.16",
     "expo": "~51.0.28",
