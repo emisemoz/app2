@@ -30,7 +30,6 @@ const LoginScreen = (props) => {
     } else {
       alert(`Your username and password didn't match!`);
     }
-   
     setUsername("");
     setPassword("");
   };

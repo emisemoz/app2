@@ -16,5 +16,13 @@ export const profileReducer = (state = initialState, action) => {
       password: newPassword,
     };
   }
+  else if(action.type==='LOGIN'){
+    const newLoginStatus= action.payload;
+    return{
+      ...state,
+      isLogin: newLoginStatus
+    }
+  }
   return state;
 };
+

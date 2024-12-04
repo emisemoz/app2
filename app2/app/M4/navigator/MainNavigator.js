@@ -1,10 +1,12 @@
+
+
 import React from 'react';
 import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Replace with your icon library
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Create Stack and Tab Navigators
 const Stack = createStackNavigator();
@@ -15,7 +17,7 @@ const TabNavigator = () => (
   <Tab.Navigator initialRouteName="Home">
     <Tab.Screen
       name="Home"
-      component={HomeScreen} // Replace with your actual HomeScreen
+      component={HomeScreen}
       options={{
         tabBarLabel: ({ focused }) => (
           <Text
@@ -72,6 +74,22 @@ const StackNavigator = () => {
               headerBackVisible: false, // Hides the back button
             }}
           />
+        <Stack.Navigator
+        initialRouteName="Start">
+          <Stack.Screen
+          name="Start"
+          component={StartScreen}
+          options={{
+            headerShown: false
+          }}
+          />
+        </Stack.Navigator>
+        :
+        <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        />
+        :
         </>
       )}
     </Stack.Navigator>
@@ -81,9 +99,7 @@ const StackNavigator = () => {
 // App Root Navigator
 const MainNavigator = () => {
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+    <Text>Mainnavigator</Text>
   );
 };
 
